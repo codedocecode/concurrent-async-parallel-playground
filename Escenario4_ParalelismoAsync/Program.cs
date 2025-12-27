@@ -1,27 +1,55 @@
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 class Program
 {
     static async Task Main()
     {
-        var items = Enumerable.Range(1, 5);
+        Console.WriteLine("Escenario 4: Paralelismo + async (CPU + I/O)\n");
 
-        await Parallel.ForEachAsync(items, new ParallelOptions { MaxDegreeOfParallelism = 3 }, async (i, ct) =>
+        string[] tareas = { "Tarea1", "Tarea2", "Tarea3", "Tarea4" };
+
+        // -------------------------------------
+        // Caso único: Parallel.ForEachAsync
+        // -------------------------------------
+        Console.WriteLine("--- Caso: Parallel.ForEachAsync ---");
+
+        // Cada tarea realiza CPU-bound y luego I/O async
+        // Varias tareas ejecutándose al mismo tiempo, hilos físicos distintos
+        // Hilo lógico principal controla la secuencia general
+        await Parallel.ForEachAsync(tareas, async (tarea, ct) =>
         {
-            ProcesarCPU(i);
-            await GuardarAsync(i);
-            Console.WriteLine($"Item {i} en hilo {Environment.CurrentManagedThreadId}");
+            // Parte CPU
+            int resultado = CalculoPesado(tarea);
+
+            // Parte I/O asincrónica
+            await OperacionAsync(tarea, 500);
+
+            Console.WriteLine($"{tarea} completada (Thread {Thread.CurrentThread.ManagedThreadId})");
         });
+
+        Console.WriteLine("Paralelismo + async completado");
     }
 
-    static void ProcesarCPU(int i)
+    static int CalculoPesado(string nombre)
     {
-        Task.Delay(300).Wait();
+        // Simula cálculo intensivo de CPU
+        Console.WriteLine($"CPU {nombre} inicio (Thread {Thread.CurrentThread.ManagedThreadId})");
+
+        int suma = 0;
+        for (int i = 0; i < 5000000; i++)
+            suma += i % 10;
+
+        Console.WriteLine($"CPU {nombre} fin (Thread {Thread.CurrentThread.ManagedThreadId})");
+        return suma;
     }
 
-    static async Task GuardarAsync(int i)
+    static async Task OperacionAsync(string nombre, int delay)
     {
-        await Task.Delay(300);
+        // Simula operación I/O asincrónica
+        Console.WriteLine($"I/O {nombre} inicio (Thread {Thread.CurrentThread.ManagedThreadId})");
+        await Task.Delay(delay);
+        Console.WriteLine($"I/O {nombre} fin (Thread {Thread.CurrentThread.ManagedThreadId})");
     }
 }
