@@ -91,7 +91,7 @@ qué problemas resuelve cada uno.
 ## 📊 Resumen comparativo
 
 | Escenario | Hilos | Async  | Paralelo | Caso típico     |
-|---------------------------------------------------------|
+|-----------|-------|--------|----------|-----------------|
 | 1         |  1    | ✔️    | ❌       | UI / event loop |
 | 2         | >1    | ❌    | ✔️       | CPU-bound       |
 | 3         | >1    | ✔️    | ❌       | Backend         |
