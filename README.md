@@ -121,16 +121,6 @@ qué problemas resuelve cada uno.
 
 ---
 
-## ▶️ Cómo ejecutar
-
-Desde la raíz del repositorio:
-
-```bash
-dotnet run --project Escenario1_Concurrencia1Hilo
-dotnet run --project Escenario2_ParalelismoCPU
-dotnet run --project Escenario3_ConcurrenciaMultihilo
-dotnet run --project Escenario4_ParalelismoAsync
-
 ## 👀 Qué observar en consola
 
 - **ThreadId**: cada mensaje muestra el `Thread.CurrentThread.ManagedThreadId`.
@@ -152,3 +142,15 @@ dotnet run --project Escenario4_ParalelismoAsync
 
 - Con **Task**, se manejan fácilmente usando `try/catch` en `async/await` o `Task.WhenAll`.  
 - Con **Thread** puro, necesitarías capturar excepciones manualmente en cada hilo.
+
+## ▶️ Cómo ejecutar
+
+Desde la raíz del repositorio:
+
+```bash
+dotnet run --project Escenario1_Concurrencia1Hilo
+dotnet run --project Escenario2_ParalelismoCPU
+dotnet run --project Escenario3_ConcurrenciaMultihilo
+dotnet run --project Escenario4_ParalelismoAsync
+
+
