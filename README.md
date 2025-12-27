@@ -143,6 +143,8 @@ qué problemas resuelve cada uno.
 - Con **Task**, se manejan fácilmente usando `try/catch` en `async/await` o `Task.WhenAll`.  
 - Con **Thread** puro, necesitarías capturar excepciones manualmente en cada hilo.
 
+---
+
 ## ▶️ Cómo ejecutar
 
 Desde la raíz del repositorio:
